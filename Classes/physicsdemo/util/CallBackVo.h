@@ -2,7 +2,7 @@
 //  CallBackVo.h
 //  game1
 //  这个是创建一些基本的cocos2d类时会用到
-//  Created by 俊盟科技1 on 8/21/14.
+//  Created by woodcol on 8/21/14.
 //
 //
 

@@ -2,7 +2,7 @@
 //  ObserverManger.cpp
 //  game1
 //
-//  Created by 俊盟科技1 on 8/20/14.
+//  Created by  on 8/20/14.
 //
 //
 

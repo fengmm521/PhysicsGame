@@ -18,6 +18,8 @@ class PHBasePhysicsSprite:public Box2dSprite
 public:
     CREATE_FUNC(PHBasePhysicsSprite);
     
+    bool s_isDie;
+    
     virtual bool init();
     virtual void initSpriteToBox2dWorld();
     

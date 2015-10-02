@@ -2,7 +2,7 @@
 //  LocalFileManger.cpp
 //  game1
 //
-//  Created by 俊盟科技1 on 9/4/14.
+//  Created by  on 9/4/14.
 //
 //
 #include <sys/stat.h>

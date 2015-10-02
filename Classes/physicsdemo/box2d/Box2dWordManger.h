@@ -14,8 +14,8 @@
 #include "external/Box2d/Box2D.h"
 #include "MyContactListener.h"
 #include "GLES-Render.h"
-#include "SkillBullet.h"
-class BaseSprite;
+#include "PHBasePhysicsBullet.h"
+class PHBasePhysicsSprite;
 class Box2dSprite;
 using namespace cocos2d;
 using namespace std;
@@ -67,15 +67,15 @@ public:
     //不可移动点根据精灵体积确定，碰撞编号与地图相同为1,
     //攻击碰撞体根据精灵攻击范围确定,编号为精灵对象指针数制
     //所有碰撞体的maskBits都为0;
-    b2Fixture* addBodyForInitSpiite(BaseSprite* initSp,int attackRange);
+    b2Fixture* addBodyForInitSpiite(PHBasePhysicsSprite* initSp,int attackRange);
     
-    b2Fixture* changeBodyForInitSpiite(BaseSprite* initSp,int attackNewRange);
+    b2Fixture* changeBodyForInitSpiite(PHBasePhysicsSprite* initSp,int attackNewRange);
     
     
-    void addBodyForInitButtle(SkillBullet* initSp,int buttleRiad);
+    void addBodyForInitButtle(PHBasePhysicsBullet* initSp,int buttleRiad);
     
     //为b2body增加新的攻击者精灵碰撞体
-    b2Fixture* addSpriteToWorldWithCollision(BaseSprite* sp,Box2dSprite* attacksSp);
+    b2Fixture* addSpriteToWorldWithCollision(PHBasePhysicsSprite* sp,Box2dSprite* attacksSp);
     
 //    //精灵死亡时，删除精灵身上攻击碰撞体
     void delBodyFixture(b2Body* b2body,int tag);

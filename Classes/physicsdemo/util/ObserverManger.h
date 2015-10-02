@@ -2,7 +2,7 @@
 //  ObserverManger.h
 //  game1
 //  创建观查者管理类,
-//  Created by 俊盟科技1 on 8/20/14.
+//  Created by  on 8/20/14.
 //
 //
 

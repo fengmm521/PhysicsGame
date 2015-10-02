@@ -9,9 +9,9 @@
 #include "Box2dWordManger.h"
 #include "GameViewConfig.h"
 #include "Box2dConfig.h"
-#include "BaseSprite.h"
+#include "PHBasePhysicsSprite.h"
 #include "Box2dSprite.h"
-#include "SkillBullet.h"
+#include "PHBasePhysicsBullet.h"
 
 #define kAttackRange1   230 //220
 #define kAttackRange2   290
@@ -156,7 +156,7 @@ void Box2dWordManger::box2duUdate(float dt)
                 case kSpriteBox2d:
                 {
                     
-                    BaseSprite *sprite = (BaseSprite *)b->GetUserData();
+                    PHBasePhysicsSprite *sprite = (PHBasePhysicsSprite *)b->GetUserData();
                     if (!sprite->s_isDie) {
                         if (sprite->s_isMoveForBox2d && (sprite->m_targetSp) != nullptr && !(sprite->m_targetSp->s_isDie) && !(sprite->isTouchMove)) {
                             Point snakePoint;
@@ -180,7 +180,7 @@ void Box2dWordManger::box2duUdate(float dt)
                     break;
                 case kButtleBox2d:
                 {
-                    SkillBullet *sprite = (SkillBullet *)b->GetUserData();
+                    PHBasePhysicsBullet *sprite = (PHBasePhysicsBullet *)b->GetUserData();
                     if (sprite) {
                         if (sprite->s_isMoveForBox2d && sprite->m_toSp != nullptr) {
                             Point snakePoint;
@@ -244,8 +244,8 @@ void Box2dWordManger::box2duUdate(float dt)
             Box2dSprite *spriteBtmp = (Box2dSprite *) bodyB->GetUserData();
             
             if (spriteAtmp->box2dSpriteType == kSpriteBox2d && spriteBtmp->box2dSpriteType == kSpriteBox2d) {
-                BaseSprite* spriteA = dynamic_cast<BaseSprite*>(spriteAtmp);
-                BaseSprite* spriteB = dynamic_cast<BaseSprite*>(spriteBtmp);
+                PHBasePhysicsSprite* spriteA = dynamic_cast<PHBasePhysicsSprite*>(spriteAtmp);
+                PHBasePhysicsSprite* spriteB = dynamic_cast<PHBasePhysicsSprite*>(spriteBtmp);
                 if ((spriteA->m_targetSp) == spriteB && (spriteA->s_isMove)) {//A追击Ｂ
                     if (spriteB->s_fixtureMap[spriteA] == NULL) {
                         continue;
@@ -270,8 +270,8 @@ void Box2dWordManger::box2duUdate(float dt)
 
             }else if(spriteAtmp->box2dSpriteType == kButtleBox2d)
             {
-                SkillBullet* spriteA = dynamic_cast<SkillBullet*>(spriteAtmp);
-                BaseSprite* spriteB = dynamic_cast<BaseSprite*>(spriteBtmp);
+                PHBasePhysicsBullet* spriteA = dynamic_cast<PHBasePhysicsBullet*>(spriteAtmp);
+                PHBasePhysicsSprite* spriteB = dynamic_cast<PHBasePhysicsSprite*>(spriteBtmp);
                 if (spriteA->m_toSp == spriteB && spriteA->s_isMove) {//A追击Ｂ
                     
                     spriteB->s_b2body->DestroyFixture(spriteB->s_fixtureMap[spriteA]);
@@ -281,8 +281,8 @@ void Box2dWordManger::box2duUdate(float dt)
                     break;
                 }
             }else if (spriteBtmp->box2dSpriteType == kButtleBox2d){
-                SkillBullet* spriteB = dynamic_cast<SkillBullet*>(spriteBtmp);
-                BaseSprite* spriteA = dynamic_cast<BaseSprite*>(spriteAtmp);
+                PHBasePhysicsBullet* spriteB = dynamic_cast<PHBasePhysicsBullet*>(spriteBtmp);
+                PHBasePhysicsSprite* spriteA = dynamic_cast<PHBasePhysicsSprite*>(spriteAtmp);
                 if (spriteB->m_toSp == spriteA && spriteB->s_isMove) {//B追击Ｂ
                     
                     spriteA->s_b2body->DestroyFixture(spriteA->s_fixtureMap[spriteB]);
@@ -311,7 +311,7 @@ void Box2dWordManger::deleInt16(int16 tag)
     s_delInt16.push_back(tag-kMinCollisionIndex);
 }
 //改变精灵的攻击范围
-b2Fixture* Box2dWordManger::changeBodyForInitSpiite(BaseSprite* initSp,int attackNewRange)
+b2Fixture* Box2dWordManger::changeBodyForInitSpiite(PHBasePhysicsSprite* initSp,int attackNewRange)
 {
     b2Body *body = initSp->s_b2body;
     int16 tmp16 = initSp->getTag();
@@ -364,7 +364,7 @@ b2Fixture* Box2dWordManger::changeBodyForInitSpiite(BaseSprite* initSp,int attac
     return  body->CreateFixture(&fixtureDef);
 }
 //根据精灵的攻击范围初始化精灵的攻击碰撞体
-b2Fixture* Box2dWordManger::addBodyForInitSpiite(BaseSprite* initSp,int attackRange)
+b2Fixture* Box2dWordManger::addBodyForInitSpiite(PHBasePhysicsSprite* initSp,int attackRange)
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -423,7 +423,7 @@ b2Fixture* Box2dWordManger::addBodyForInitSpiite(BaseSprite* initSp,int attackRa
     return body->CreateFixture(&fixtureDef);
 }
 //初始化子弹的碰撞体
-void Box2dWordManger::addBodyForInitButtle(SkillBullet* initSp,int buttleRiad)
+void Box2dWordManger::addBodyForInitButtle(PHBasePhysicsBullet* initSp,int buttleRiad)
 {
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -455,7 +455,7 @@ void Box2dWordManger::addBodyForInitButtle(SkillBullet* initSp,int buttleRiad)
 
 }
 //为b2body增加新的攻击者精灵碰撞体
-b2Fixture* Box2dWordManger::addSpriteToWorldWithCollision(BaseSprite* sp,Box2dSprite* attacksSp)
+b2Fixture* Box2dWordManger::addSpriteToWorldWithCollision(PHBasePhysicsSprite* sp,Box2dSprite* attacksSp)
 {
     b2Body *body = sp->s_b2body;
     Point poSape;
@@ -463,14 +463,14 @@ b2Fixture* Box2dWordManger::addSpriteToWorldWithCollision(BaseSprite* sp,Box2dSp
     switch (attacksSp->box2dSpriteType) {
         case kSpriteBox2d:
         {
-            BaseSprite* tmp =   dynamic_cast<BaseSprite*>(attacksSp);
+            PHBasePhysicsSprite* tmp =   dynamic_cast<PHBasePhysicsSprite*>(attacksSp);
             tag = tmp->getTag();
             poSape = Vec2(0.0f,0.0f);
         }
             break;
         case kButtleBox2d:
         {
-            SkillBullet* tmp =   dynamic_cast<SkillBullet*>(attacksSp);
+            PHBasePhysicsBullet* tmp =   dynamic_cast<PHBasePhysicsBullet*>(attacksSp);
             tag = tmp->getTag();
             poSape = sp->s_beBulltePoint;
         }

@@ -2,7 +2,7 @@
 //  CallBackVo.cpp
 //  game1
 //
-//  Created by 俊盟科技1 on 8/21/14.
+//  Created by woodcol on 8/21/14.
 //
 //
 
